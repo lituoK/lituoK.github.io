@@ -118,57 +118,27 @@
     </div>
 </header>
         <main class="main">
-            
-<section class="posts">
+            <article class="post">
     
-        <article class="post">
-            
-                    <h1 class="post-title">
-                        <a href="/2020/11/01/mmult%E7%AE%97%E6%B3%95%20%E2%80%94%E2%80%94%20%E6%9D%8E%E6%8B%93/">
-                            
-                        </a>
-                    </h1>
-
-                    <ul class="post-date">
-                        <li>
-                            November 1, 2020
-                        </li>
-                        <li>
-                            John Doe
-                        </li>
-                    </ul>
-                    
-                    <div class="post-content ">
-                        
-                            <a href="/2020/11/01/mmult%E7%AE%97%E6%B3%95%20%E2%80%94%E2%80%94%20%E6%9D%8E%E6%8B%93/" class="more-link">Continue reading</a>
-                    </div>
-        </article>
+    
+    
+    <h2 class="post-title">
         
-        <article class="post">
-            
-                    <h1 class="post-title">
-                        <a href="/2020/11/01/hello-world/">
-                            Hello World
-                        </a>
-                    </h1>
+    </h2>
+    <ul class="post-date">
+        <li>
+            2020-11-01
+        </li>
+        <li>
+            John Doe
+        </li>
+    </ul>
+    <div class="post-content">
+        <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; dict;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; ans;</span><br><span class="line">    <span class="built_in">string</span> s;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">wordBreak</span><span class="params">(<span class="built_in">string</span> _s, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; wordDict)</span> </span>&#123;</span><br><span class="line">        s = _s;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> t : wordDict) dict.insert(t);</span><br><span class="line">        dfs(<span class="number">0</span>, <span class="string">&quot;&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> u, <span class="built_in">string</span> path)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(u == s.size())&#123;</span><br><span class="line">            path.pop_back();</span><br><span class="line">            ans.push_back(path);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="built_in">string</span> t;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = u; i &lt; s.size(); i ++ )&#123;</span><br><span class="line">                t += s[i];</span><br><span class="line">                <span class="keyword">if</span>(dict.count(t)) dfs(i + <span class="number">1</span>, path + t + <span class="string">&quot; &quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-                    <ul class="post-date">
-                        <li>
-                            November 1, 2020
-                        </li>
-                        <li>
-                            John Doe
-                        </li>
-                    </ul>
-                    
-                    <div class="post-content ">
-                        
-                            <a href="/2020/11/01/hello-world/" class="more-link">Continue reading</a>
-                    </div>
-        </article>
-        
-</section>
 
+    </div>
+</article>
         </main>
         <aside class="aside">
             <div class="close"></div>
