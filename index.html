@@ -145,6 +145,89 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020-11-20/lc-514/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LiTuo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="醒来">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020-11-20/lc-514/" class="post-title-link" itemprop="url">Leetcode514.自由之路</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-20 00:00:00" itemprop="dateCreated datePublished" datetime="2020-11-20T00:00:00+08:00">2020-11-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-11-12 15:53:58" itemprop="dateModified" datetime="2020-11-12T15:53:58+08:00">2020-11-12</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/freedom-trail/">514. 自由之路</a></p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><h4 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h4><p>设:f[i][j]为匹配了key[0:i],且ring[j]在最上方需要转动的最小次数。</p>
+<ul>
+<li>对于每一个f[i][j], 我们先考虑i和j应该满足什么样的要求?</li>
+</ul>
+<p>因为我们匹配的是key[i],为了得到最小的步骤，我们只需要将<code>ring[j] = key[i]</code>的位置j转到最上方就可以了，因为对于那些ring[k] != key[i]的位置，我们就需要先将圆环的ring[j]（ring[j] == key[i]）转到最上方,将key[i]进行匹配之后,再从这个位置把ring[k]再转到最上方。这个动作是多余的。在后面我们也能看到，对于那些f[i][j],其中ring[j] != key[i]的这些状态，我们是不需要的。 </p>
+<p>综上，我们只需要维护f[i][j]其中key[i] = ring[j]。</p>
+<ul>
+<li>然后如何进行状态转移呢？如何得到f[i][j]呢？</li>
+</ul>
+<p>我们先考虑最后一步，我们的目的是匹配key[i],并且将ring[j]转到最上方。那么我们应该从什么地方开始转动呢？很容易想到，我们在进行这次转动之前，我们匹配了key[i - 1]，所以我们就要从那些ring[k] = key[i - 1]的位置k开始，将ring[j]转换到最上方。</p>
+<p>综上，我们将圆环从ring[k]在最上方，转动到了ring[j]在最上方。其中ring[k] = key[i - 1],ring[j] = key[i]。</p>
+<ul>
+<li>最后，如果将圆环从位置j转到位置k，我们最少需要转动多少步呢？</li>
+</ul>
+<p>要将圆环从位置j转到位置k，我们需要将圆环转动<code>abs(j - k)</code>步，但是圆环可以顺时针转动，也可以逆时针转动，所以要反方向转动，就需要将圆环转动<code>m - abs(j - k)</code>步。</p>
+<p>综上，要将圆环从位置j转到位置k，我们最少需要转动min(abs(j - k), m - abs(j - k))步。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><h4 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">findRotateSteps</span><span class="params">(<span class="built_in">string</span> ring, <span class="built_in">string</span> key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = key.size(), m = ring.size();</span><br><span class="line">        <span class="comment">// f[i][j]:匹配key[0:i]，ring[j]在十二点钟方向，需要转的最少步数</span></span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">f</span><span class="params">(n, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(m, <span class="number">2e9</span>))</span></span>;</span><br><span class="line">        <span class="comment">// pos:存储各个字母在ring中的位置</span></span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">pos</span><span class="params">(<span class="number">26</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i ++ ) </span><br><span class="line">            pos[ring[i] - <span class="string">&#x27;a&#x27;</span>].push_back(i);</span><br><span class="line">        <span class="comment">//初始化：匹配key[0]，如果ring[i]要转到十二点方向，需要的最少步数</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> i : pos[key[<span class="number">0</span>] - <span class="string">&#x27;a&#x27;</span>])</span><br><span class="line">            f[<span class="number">0</span>][i] = min(i, m - i);</span><br><span class="line">        <span class="comment">// 动态规划</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i ++ )</span><br><span class="line">            <span class="comment">// 枚举key[i]在ring中出现的位置</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">auto</span> j : pos[key[i] - <span class="string">&#x27;a&#x27;</span>])</span><br><span class="line">                <span class="comment">// 枚举key[i - 1]在ring中出现的位置</span></span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">auto</span> k : pos[key[i - <span class="number">1</span>] - <span class="string">&#x27;a&#x27;</span>])&#123; </span><br><span class="line">                    <span class="comment">// 要从位置k转到位置j</span></span><br><span class="line">                    f[i][j] = min(f[i][j], f[i - <span class="number">1</span>][k] + min(<span class="built_in">abs</span>(k - j), m - <span class="built_in">abs</span>(k - j)));</span><br><span class="line">                &#125;</span><br><span class="line">        <span class="comment">// 找到匹配key需要的最少步数</span></span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">2e9</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i ++ ) res = min(res, f[n - <span class="number">1</span>][i]);</span><br><span class="line">        <span class="comment">// 每次匹配需要按动一次按钮，相当于转动一次，所以要加上key.size()</span></span><br><span class="line">        <span class="keyword">return</span> res + n;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findRotateSteps</span><span class="params">(String ring, String key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = key.length(), m = ring.length();</span><br><span class="line">        <span class="comment">// pos数组：存储各个字母在ring中的位置</span></span><br><span class="line">        ArrayList&lt;Integer&gt;[] pos = <span class="keyword">new</span> ArrayList[<span class="number">26</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">26</span>; i ++ ) pos[i] = <span class="keyword">new</span> ArrayList();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i ++ )</span><br><span class="line">            pos[ring.charAt(i) - <span class="string">&#x27;a&#x27;</span>].add(i);</span><br><span class="line">        <span class="comment">// f[i][j]:匹配key[0:i]，ring[j]在十二点钟方向，需要转的最少步数</span></span><br><span class="line">        <span class="keyword">int</span>[][] f = <span class="keyword">new</span> <span class="keyword">int</span>[n][m];</span><br><span class="line">        <span class="comment">// 初始化：注意在java中如果2e9表示一个常量，需要强制转换为int类型</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++ ) Arrays.fill(f[i], (<span class="keyword">int</span>)<span class="number">2e9</span>);</span><br><span class="line">        <span class="comment">// 初始化：匹配key[0]，如果ring[i]要转到十二点方向，需要的最少步数</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i : pos[key.charAt(<span class="number">0</span>) - <span class="string">&#x27;a&#x27;</span>]) f[<span class="number">0</span>][i] = Math.min(i, m - i);</span><br><span class="line">        <span class="comment">// 动态规划</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i ++ ) </span><br><span class="line">            <span class="comment">// 枚举key[i]在ring中出现的位置</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j : pos[key.charAt(i) - <span class="string">&#x27;a&#x27;</span>])</span><br><span class="line">                <span class="comment">// 枚举key[i - 1]在ring中出现的位置</span></span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> k : pos[key.charAt(i - <span class="number">1</span>) - <span class="string">&#x27;a&#x27;</span>])</span><br><span class="line">                    <span class="comment">// 从位置k转到位置j</span></span><br><span class="line">                    f[i][j] = Math.min(f[i][j], f[i - <span class="number">1</span>][k] + Math.min(Math.abs(j - k), m - Math.abs(j - k)));</span><br><span class="line">        <span class="comment">// java中的流式编程，找到f[n - 1]中最小的元素</span></span><br><span class="line">        <span class="keyword">return</span> Arrays.stream(f[n - <span class="number">1</span>]).min().getAsInt() + n;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2020-11-10/lc-31/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -833,7 +916,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
