@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="题目57. 插入区间思路这道题就是一个区间合并的题，首先给定一组有序的区间，和一个要插入的区间，我们可以把这组区间分成三类  在要插入的区间左边，没有交集的区间 和给定区间可以合并成一个区间的区间 最后是剩下的和合并后的区间没有交集的区间。  设：给定区间的左右断点分别为l和r。 对于三类区间：  首先，因为给定的区间都是有序的，所以我们可以先把这些数组加入到答案中，这些数组的都在给定区间的左边，">
+  <meta name="description" content="题目57. 插入区间">
 <meta property="og:type" content="article">
 <meta property="og:title" content="57. 插入区间">
 <meta property="og:url" content="http://example.com/2020-11-04/lc-57/index.html">
 <meta property="og:site_name" content="醒来">
-<meta property="og:description" content="题目57. 插入区间思路这道题就是一个区间合并的题，首先给定一组有序的区间，和一个要插入的区间，我们可以把这组区间分成三类  在要插入的区间左边，没有交集的区间 和给定区间可以合并成一个区间的区间 最后是剩下的和合并后的区间没有交集的区间。  设：给定区间的左右断点分别为l和r。 对于三类区间：  首先，因为给定的区间都是有序的，所以我们可以先把这些数组加入到答案中，这些数组的都在给定区间的左边，">
+<meta property="og:description" content="题目57. 插入区间">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-11-03T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-11-04T04:58:19.907Z">
+<meta property="article:modified_time" content="2020-11-13T06:54:26.601Z">
 <meta property="article:author" content="LiTuo">
 <meta name="twitter:card" content="summary">
 
@@ -172,10 +172,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-11-04 00:00:00 / 修改时间：12:58:19" itemprop="dateCreated datePublished" datetime="2020-11-04T00:00:00+08:00">2020-11-04</time>
+              <time title="创建时间：2020-11-04 00:00:00" itemprop="dateCreated datePublished" datetime="2020-11-04T00:00:00+08:00">2020-11-04</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-11-13 14:54:26" itemprop="dateModified" datetime="2020-11-13T14:54:26+08:00">2020-11-13</time>
+              </span>
 
           
 
@@ -188,7 +194,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><h4 id="57-插入区间"><a href="#57-插入区间" class="headerlink" title="57. 插入区间"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/insert-interval/">57. 插入区间</a></h4><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>这道题就是一个区间合并的题，首先给定一组有序的区间，和一个要插入的区间，我们可以把这组区间分成三类</p>
+        <h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><h4 id="57-插入区间"><a href="#57-插入区间" class="headerlink" title="57. 插入区间"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/insert-interval/">57. 插入区间</a></h4><a id="more"></a>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>这道题就是一个区间合并的题，首先给定一组有序的区间，和一个要插入的区间，我们可以把这组区间分成三类</p>
 <ol>
 <li>在要插入的区间左边，没有交集的区间</li>
 <li>和给定区间可以合并成一个区间的区间</li>
