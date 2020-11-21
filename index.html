@@ -146,7 +146,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/lc-147/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/lc-148/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -160,7 +160,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/lc-147/" class="post-title-link" itemprop="url">Leetcode147. 对链表进行插入排序</a>
+            <a href="/lc-148/" class="post-title-link" itemprop="url">Leetcode148. 排序链表</a>
         </h2>
 
         <div class="post-meta">
@@ -171,7 +171,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-11-20 00:00:00 / 修改时间：08:13:02" itemprop="dateCreated datePublished" datetime="2020-11-20T00:00:00+08:00">2020-11-20</time>
+              <time title="创建时间：2020-11-21 00:00:00 / 修改时间：20:31:38" itemprop="dateCreated datePublished" datetime="2020-11-21T00:00:00+08:00">2020-11-21</time>
             </span>
 
           
@@ -185,13 +185,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/insertion-sort-list/">147. 对链表进行插入排序</a></p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>这道题是一道插入排序，插入排序的思想很简单，遍历每个元素，在前面第一个大于等于此元素的元素前把此元素插入进去。</p>
-<p>不过这道题比较特殊的地方在于我们操作的链表，而不是数组，其实链表更加适合插入，因为数组的插入需要把后面的元素都向后挪动一位，时间复杂度<code>O(n)</code>；而对于链表，插入一个节点的时间复杂度只有<code>O(1)</code>。但是对于单链表的插入，我们要记住一个原则，<code>那就是只能在一个节点的后面插入新节点。</code></p>
-<p>所以，我们只要遍历链表，然后在之前已经排过序的链表中找到第一个大于等于当前遍历的节点的<code>前序节点</code>即可。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">insertionSortList</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 指向排过序的链表</span></span><br><span class="line">        ListNode dummy = <span class="keyword">new</span> ListNode(-<span class="number">1</span>);</span><br><span class="line">        <span class="comment">// 遍历链表</span></span><br><span class="line">        <span class="keyword">for</span>(ListNode p = head; p != <span class="keyword">null</span>;)&#123;</span><br><span class="line">            ListNode q = p.next;</span><br><span class="line">            <span class="comment">// v是u的前序节点</span></span><br><span class="line">            ListNode v = dummy, u = v.next;</span><br><span class="line">            <span class="comment">// 循环后u指向第一个大于等于p的节点</span></span><br><span class="line">            <span class="keyword">while</span>(u != <span class="keyword">null</span> &amp;&amp; u.val &lt; p.val)&#123;</span><br><span class="line">                v = u;</span><br><span class="line">                u = u.next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 将p插入到u的前序节点v后面</span></span><br><span class="line">            p.next = v.next;</span><br><span class="line">            v.next = p;</span><br><span class="line">            <span class="comment">// p向后挪动一位</span></span><br><span class="line">            p = q;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dummy.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">insertionSortList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 指向排过序的链表</span></span><br><span class="line">        <span class="keyword">auto</span> dummy = <span class="keyword">new</span> ListNode(<span class="number">-1</span>);</span><br><span class="line">        <span class="comment">// 遍历链表</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> p = head; p;)&#123;</span><br><span class="line">            <span class="keyword">auto</span> q = p-&gt;next;</span><br><span class="line">            <span class="comment">// v是u的前序节点</span></span><br><span class="line">            <span class="keyword">auto</span> v = dummy, u = v-&gt;next;</span><br><span class="line">            <span class="comment">// 循环后u指向第一个大于等于p的节点</span></span><br><span class="line">            <span class="keyword">while</span>(u &amp;&amp; u-&gt;val &lt; p-&gt;val) v = u, u = u-&gt;next;</span><br><span class="line">            <span class="comment">// 将p插入到u的前序节点v后面</span></span><br><span class="line">            p-&gt;next = v-&gt;next, v-&gt;next = p;</span><br><span class="line">            <span class="comment">// p向后挪动一位</span></span><br><span class="line">            p = q;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dummy-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
+          <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/sort-list/">148. 排序链表</a></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/lc-148/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -234,7 +236,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-11-19 07:33:58" itemprop="dateCreated datePublished" datetime="2020-11-19T07:33:58+08:00">2020-11-19</time>
+              <time title="创建时间：2020-11-20 08:14:45" itemprop="dateCreated datePublished" datetime="2020-11-20T08:14:45+08:00">2020-11-20</time>
             </span>
 
           
@@ -250,9 +252,80 @@
       
           <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/move-zeroes/">283. 移动零</a></p>
 <h2 id="双指针-O-n"><a href="#双指针-O-n" class="headerlink" title="双指针 O(n)"></a>双指针 O(n)</h2><p>使用两个指针i和j来解决这道题，我们用指针i来遍历数组<code>nums</code>,定义<code>nums[0 : j - 1]</code>都是非零元素，这样，<code>指针j指向的就是一个值为0的元素</code>，所以在我们遍历的时候，只要碰到非零元素，直接交换即可。</p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><h4 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">moveZeroes</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>; i &lt; nums.size(); i ++ )</span><br><span class="line">            <span class="keyword">if</span>(nums[i] != <span class="number">0</span>) swap(nums[i], nums[j ++ ]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h4 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span>[] nums;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> t = nums[i];</span><br><span class="line">        nums[i] = nums[j];</span><br><span class="line">        nums[j] = t;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">moveZeroes</span><span class="params">(<span class="keyword">int</span>[] _nums)</span> </span>&#123;</span><br><span class="line">        nums = _nums;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>; i &lt; nums.length; i ++ )&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i] != <span class="number">0</span>) swap(i, j ++ );</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/lc-283/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
 
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/lc-147/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LiTuo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="醒来">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/lc-147/" class="post-title-link" itemprop="url">Leetcode147. 对链表进行插入排序</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-11-20 00:00:00 / 修改时间：08:14:34" itemprop="dateCreated datePublished" datetime="2020-11-20T00:00:00+08:00">2020-11-20</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/insertion-sort-list/">147. 对链表进行插入排序</a></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/lc-147/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -294,10 +367,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-11-18 00:00:00 / 修改时间：13:21:12" itemprop="dateCreated datePublished" datetime="2020-11-18T00:00:00+08:00">2020-11-18</time>
+              <time title="创建时间：2020-11-18 00:00:00" itemprop="dateCreated datePublished" datetime="2020-11-18T00:00:00+08:00">2020-11-18</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-11-20 08:14:59" itemprop="dateModified" datetime="2020-11-20T08:14:59+08:00">2020-11-20</time>
+              </span>
 
           
 
@@ -311,15 +390,14 @@
 
       
           <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/gas-station/">134. 加油站</a></p>
-<h2 id="算法一-模拟-O-n-2"><a href="#算法一-模拟-O-n-2" class="headerlink" title="算法一 模拟 O(n^2)"></a>算法一 模拟 O(n^2)</h2><p>枚举所有起点，然后计算是否能转一圈回来。</p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><h4 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">canCompleteCircuit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; gas, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; cost)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = gas.size();</span><br><span class="line">        <span class="comment">// 枚举所有起点</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++ )&#123;</span><br><span class="line">            <span class="keyword">bool</span> flag = <span class="literal">true</span>;</span><br><span class="line">            <span class="comment">// 枚举所有能到达的站点</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>, r = <span class="number">0</span>; flag &amp;&amp; j &lt; n; j ++ )&#123;</span><br><span class="line">                <span class="comment">// 计算站点坐标</span></span><br><span class="line">                <span class="keyword">int</span> k = (i + j) % n;</span><br><span class="line">                <span class="comment">// 计算要消耗和能获得的燃油量</span></span><br><span class="line">                r += gas[k] - cost[k];</span><br><span class="line">                <span class="comment">// 如果r&lt;0则表示不能到达下一站,置flag为false</span></span><br><span class="line">                <span class="keyword">if</span>(r &lt; <span class="number">0</span>) flag = <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 如果flag = true，则表示能转一圈回来。</span></span><br><span class="line">            <span class="keyword">if</span>(flag) <span class="keyword">return</span> i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h4 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">canCompleteCircuit</span><span class="params">(<span class="keyword">int</span>[] gas, <span class="keyword">int</span>[] cost)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = gas.length;</span><br><span class="line">        <span class="comment">// 枚举所有起点</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++ )&#123;</span><br><span class="line">            <span class="keyword">boolean</span> flag = <span class="keyword">true</span>;</span><br><span class="line">            <span class="comment">// 枚举所有能到达的站点</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>, r = <span class="number">0</span>; flag &amp;&amp; j &lt; n; j ++ )&#123;</span><br><span class="line">                <span class="comment">// 计算站点坐标</span></span><br><span class="line">                <span class="keyword">int</span> k = (i + j) % n;</span><br><span class="line">                <span class="comment">// 计算要消耗和能获得的燃油量</span></span><br><span class="line">                r += gas[k] - cost[k];</span><br><span class="line">                <span class="comment">// 如果r&lt;0则表示不能到达下一站,置flag为false</span></span><br><span class="line">                <span class="keyword">if</span>(r &lt; <span class="number">0</span>) flag = <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 如果flag = true，则表示能转一圈回来。</span></span><br><span class="line">            <span class="keyword">if</span>(flag) <span class="keyword">return</span> i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="算法二-模拟（优化）O-n"><a href="#算法二-模拟（优化）O-n" class="headerlink" title="算法二 模拟（优化）O(n)"></a>算法二 模拟（优化）O(n)</h2><p>考虑一种失败的情况，我们从点i出发，最多可以到达点k（还未转一圈到达点i）。也就是说我们一共经过了i, i + 1, i + 2, … , k - 2, k - 1, k这些站点；根据题意，我们刚刚到达这些站点的时候，一定是满足r&gt;=0的，因为如果r &lt; 0,我们就没有油可以到达这个站点了。</p>
-<p>而在上一个算法中，我们会枚举所有这些中间节点，但是其实这些中间节点都是不需要枚举的，因为在以i为起点的时候，到达所有这些中间节点的时候满足r &gt;= 0, 这样都最远只能到达点k，而我们如果枚举这些中间节点的时候，设置r = 0,这些点就不可能到达超过点k的位置了。</p>
-<p>综上，如果遇到失败的情况，我们跳过所有中间节点。</p>
-<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><h4 id="C-1"><a href="#C-1" class="headerlink" title="C++"></a>C++</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">canCompleteCircuit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; gas, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; cost)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = gas.size();</span><br><span class="line">        <span class="comment">// 注意，没有i++</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n;)&#123;</span><br><span class="line">            <span class="keyword">bool</span> flag = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">int</span> j = <span class="number">0</span>; <span class="comment">// 失败的时候需要用j计算跳过的节点</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> r = <span class="number">0</span>; flag &amp;&amp; j &lt; n; j ++ )&#123;</span><br><span class="line">                <span class="keyword">int</span> k = (i + j) % n;</span><br><span class="line">                r += gas[k] - cost[k];</span><br><span class="line">                <span class="keyword">if</span>(r &lt; <span class="number">0</span>) flag = <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(flag) <span class="keyword">return</span> i;</span><br><span class="line">            <span class="comment">// 注意,因为置flag还要继续循环一次，所以j会+1,i+=j就是跳过了所有中间节点。</span></span><br><span class="line">            i += j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h4 id="Java-1"><a href="#Java-1" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">canCompleteCircuit</span><span class="params">(<span class="keyword">int</span>[] gas, <span class="keyword">int</span>[] cost)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = gas.length;</span><br><span class="line">        <span class="comment">// 注意，没有i++</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n;)&#123;</span><br><span class="line">            <span class="keyword">boolean</span> flag = <span class="keyword">true</span>;</span><br><span class="line">            <span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> r = <span class="number">0</span>; flag &amp;&amp; j &lt; n; j ++ )&#123;</span><br><span class="line">                <span class="keyword">int</span> k = (i + j) % n;</span><br><span class="line">                r += gas[k] - cost[k];</span><br><span class="line">                <span class="keyword">if</span>(r &lt; <span class="number">0</span>) flag = <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(flag) <span class="keyword">return</span> i;</span><br><span class="line">            <span class="comment">// 注意,因为置flag还要继续循环一次，所以j会+1,i+=j就是跳过了所有中间节点。</span></span><br><span class="line">            i += j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/lc-134/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -738,78 +816,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/lc-514/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LiTuo">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="醒来">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/lc-514/" class="post-title-link" itemprop="url">Leetcode514.自由之路</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-11-12 00:00:00" itemprop="dateCreated datePublished" datetime="2020-11-12T00:00:00+08:00">2020-11-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-11-13 14:54:17" itemprop="dateModified" datetime="2020-11-13T14:54:17+08:00">2020-11-13</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/freedom-trail/">514. 自由之路</a></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/lc-514/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -879,7 +885,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
