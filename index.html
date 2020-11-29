@@ -146,6 +146,71 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/lc-767/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LiTuo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="醒来">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/lc-767/" class="post-title-link" itemprop="url">Leetcode767.重构字符串</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-11-30 00:00:00 / 修改时间：07:43:00" itemprop="dateCreated datePublished" datetime="2020-11-30T00:00:00+08:00">2020-11-30</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reorganize-string/">767. 重构字符串</a></p>
+<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><h3 id="虚地址-排序"><a href="#虚地址-排序" class="headerlink" title="虚地址+排序"></a>虚地址+排序</h3><p>将字符串按照每个字符出现的次数进行排序，然后使用虚地址进行映射。映射方法与之前的<a target="_blank" rel="noopener" href="https://wakem.top/lc-922/">Leetcode922. 按奇偶排序数组 II</a>一致，具体请看题解的后半部分。最后判断，如果有两个连续的字符，则说明没有答案，返回空字符串。</p>
+<p>如果理解不了的话，可以在排序之后，使用下面代码对字符串进行遍历，就会发现，在虚拟地址空间中，字符串确实是按照出现次数排序的。</p>
+<h4 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++ ) <span class="built_in">cout</span> &lt;&lt; N(i);</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++ ) System.out.print(mp[i]);</span><br><span class="line">System.out.println();</span><br></pre></td></tr></table></figure>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><h5 id="C-1"><a href="#C-1" class="headerlink" title="C++"></a>C++</h5><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; cnt = <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(<span class="number">26</span>);</span><br><span class="line">    <span class="built_in">string</span> S;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">	<span class="comment">// 虚地址映射</span></span><br><span class="line">    <span class="meta">#<span class="meta-keyword">define</span> N(i) S[(1 + 2*(i)) % (n | 1)]</span></span><br><span class="line">    <span class="comment">// 快速排序</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> r)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(l &gt;= r) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">int</span> i = l - <span class="number">1</span>, j = r + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">char</span> x = N((l + r) / <span class="number">2</span>);</span><br><span class="line">        <span class="keyword">while</span>(i &lt; j)&#123;</span><br><span class="line">            <span class="comment">// 按照字符的出现次数作为第一关键字，字符大小作为第二关键字</span></span><br><span class="line">            <span class="keyword">do</span> i ++ ; <span class="keyword">while</span>(cnt[N(i) - <span class="string">&#x27;a&#x27;</span>] &lt; cnt[x - <span class="string">&#x27;a&#x27;</span>] </span><br><span class="line">                            || (N(i) &lt; x &amp;&amp; cnt[N(i) - <span class="string">&#x27;a&#x27;</span>] == cnt[x - <span class="string">&#x27;a&#x27;</span>]));</span><br><span class="line">            <span class="keyword">do</span> j -- ; <span class="keyword">while</span>(cnt[N(j) - <span class="string">&#x27;a&#x27;</span>] &gt; cnt[x - <span class="string">&#x27;a&#x27;</span>] </span><br><span class="line">                            || (N(j) &gt; x &amp;&amp; cnt[N(j) - <span class="string">&#x27;a&#x27;</span>] == cnt[x - <span class="string">&#x27;a&#x27;</span>]));</span><br><span class="line">            <span class="keyword">if</span>(i &lt; j) swap(N(i), N(j));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 递归到下一层</span></span><br><span class="line">        sort(l, j), sort(j + <span class="number">1</span>, r);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">reorganizeString</span><span class="params">(<span class="built_in">string</span> _S)</span> </span>&#123;</span><br><span class="line">        S = _S;</span><br><span class="line">        n = S.size();</span><br><span class="line">        <span class="comment">// 对字符出现的次数进行计数</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> t : S) cnt[t - <span class="string">&#x27;a&#x27;</span>] ++ ;</span><br><span class="line">        sort(<span class="number">0</span>, S.size() - <span class="number">1</span>);</span><br><span class="line">        <span class="comment">// 如果要查看虚地址空间中的顺序，去除下面的注释</span></span><br><span class="line">        <span class="comment">// for(int i = 0; i &lt; n; i ++ ) cout &lt;&lt; N(i);</span></span><br><span class="line">		<span class="comment">// cout &lt;&lt; endl;</span></span><br><span class="line">        <span class="comment">// 如果有两个连续的字符，返回空串</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i ++ )</span><br><span class="line">            <span class="keyword">if</span>(S[i] == S[i - <span class="number">1</span>]) <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">return</span> S;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h5 id="Java-1"><a href="#Java-1" class="headerlink" title="Java"></a>Java</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    StringBuilder S;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="comment">// 用于记录S中字符出现的次数</span></span><br><span class="line">    <span class="keyword">int</span>[] cnt = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">26</span>];</span><br><span class="line">	<span class="comment">// 用于地址映射</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">get</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="number">2</span> * i + <span class="number">1</span>) % (n | <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">// 返回虚地址空间中的S[i]</span></span><br><span class="line">    <span class="function"><span class="keyword">char</span> <span class="title">mp</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> x = get(i);</span><br><span class="line">        <span class="keyword">return</span> S.charAt(x);</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">// 在虚地址空间中进行交换</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> x = get(i), y = get(j);</span><br><span class="line">        <span class="keyword">char</span> t = S.charAt(x);</span><br><span class="line">        S.setCharAt(x, S.charAt(y));</span><br><span class="line">        S.setCharAt(y, t);</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">// 快速排序</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> r)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(l &gt;= r) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">char</span> c = mp((l + r) / <span class="number">2</span>);</span><br><span class="line">        <span class="keyword">int</span> i = l - <span class="number">1</span>, j = r + <span class="number">1</span>, x = cnt[c - <span class="string">&#x27;a&#x27;</span>];</span><br><span class="line">        <span class="keyword">while</span>(i &lt; j)&#123;</span><br><span class="line">            <span class="comment">// 第一关键字：字符出现的次数； 第二关键字： 字符大小</span></span><br><span class="line">            <span class="keyword">do</span> i ++ ; <span class="keyword">while</span>(cnt[mp(i) - <span class="string">&#x27;a&#x27;</span>] &lt; x </span><br><span class="line">                            || (mp(i) &lt; c &amp;&amp; cnt[mp(i) - <span class="string">&#x27;a&#x27;</span>] == x));</span><br><span class="line">            <span class="keyword">do</span> j -- ; <span class="keyword">while</span>(cnt[mp(j) - <span class="string">&#x27;a&#x27;</span>] &gt; x </span><br><span class="line">                            || (mp(j) &gt; c &amp;&amp; cnt[mp(j) - <span class="string">&#x27;a&#x27;</span>] == x));</span><br><span class="line">            <span class="keyword">if</span>(i &lt; j) swap(i, j);</span><br><span class="line">        &#125;</span><br><span class="line">        sort(l, j);</span><br><span class="line">        sort(j + <span class="number">1</span>, r);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">reorganizeString</span><span class="params">(String _S)</span> </span>&#123;</span><br><span class="line">        S = <span class="keyword">new</span> StringBuilder(_S);</span><br><span class="line">        n = S.length();</span><br><span class="line">        <span class="comment">// 统计字符出现的次数</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++ ) </span><br><span class="line">            cnt[(<span class="keyword">char</span>)S.charAt(i) - <span class="string">&#x27;a&#x27;</span>] ++ ;</span><br><span class="line">        <span class="comment">// 排序</span></span><br><span class="line">        sort(<span class="number">0</span>, n - <span class="number">1</span>);</span><br><span class="line">        <span class="comment">// 如果要查看虚地址空间中字符排列，请打开下列注释</span></span><br><span class="line">        <span class="comment">// for(int i = 0; i &lt; n; i ++ ) System.out.print(mp(i));</span></span><br><span class="line">		<span class="comment">// System.out.println();</span></span><br><span class="line">        <span class="comment">// 判断是否有连续字符</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i ++ )</span><br><span class="line">            <span class="keyword">if</span>(S.charAt(i) == S.charAt(i - <span class="number">1</span>)) </span><br><span class="line">                <span class="comment">// 如果有，返回空串</span></span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> String();</span><br><span class="line">        <span class="keyword">return</span> S.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/lc-976/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -747,72 +812,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/lc-283/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LiTuo">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="醒来">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/lc-283/" class="post-title-link" itemprop="url">Leetcode283. 移动零</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-11-20 08:14:45" itemprop="dateCreated datePublished" datetime="2020-11-20T08:14:45+08:00">2020-11-20</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/move-zeroes/">283. 移动零</a></p>
-<h2 id="双指针-O-n"><a href="#双指针-O-n" class="headerlink" title="双指针 O(n)"></a>双指针 O(n)</h2><p>使用两个指针i和j来解决这道题，我们用指针i来遍历数组<code>nums</code>,定义<code>nums[0 : j - 1]</code>都是非零元素，这样，<code>指针j指向的就是一个值为0的元素</code>，所以在我们遍历的时候，只要碰到非零元素，直接交换即可。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/lc-283/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -882,7 +881,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">29</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
