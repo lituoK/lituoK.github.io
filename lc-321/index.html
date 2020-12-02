@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="题目321. 拼接最大数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Leetcode321. 拼接最大数">
+<meta property="og:url" content="http://example.com/lc-321/index.html">
+<meta property="og:site_name" content="醒来">
+<meta property="og:description" content="题目321. 拼接最大数">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-12-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-12-02T12:59:57.914Z">
+<meta property="article:author" content="LiTuo">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/lc-321/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Leetcode321. 拼接最大数 | 醒来</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">醒来</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">因为热爱</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/lc-321/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LiTuo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="醒来">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Leetcode321. 拼接最大数
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-12-02 00:00:00 / 修改时间：20:59:57" itemprop="dateCreated datePublished" datetime="2020-12-02T00:00:00+08:00">2020-12-02</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/create-maximum-number/">321. 拼接最大数</a></p>
+<a id="more"></a>
+<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><h3 id="贪心-O-k-n-2"><a href="#贪心-O-k-n-2" class="headerlink" title="贪心 O(k * n^2)"></a>贪心 O(k * n^2)</h3><p>这道题的算法会用到<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/remove-k-digits/">Leetcode402. 移掉K位数字</a>这道题的算法，如果不了解的请去看一下。有了402的基础，这道题就很简单了，先给出算法步骤：</p>
+<ul>
+<li>枚举在<code>nums1</code>和<code>nums2</code>中分别取多少数i和j（i + j = k）<ul>
+<li>在<code>nums1</code>中取i个数得到数<code>a</code>，使得该数的字典序最大</li>
+<li>在<code>nums2</code>中取j个数得到数<code>b</code>，使得该数的字典序最大</li>
+<li>对<code>a</code>和<code>b</code>进行合并得到数<code>c</code>，使得概述的字典序最大</li>
+</ul>
+</li>
+<li>枚举过程中最大的数c就是我们想要的答案了。</li>
+</ul>
+<p>所以这道题的核心问题就在于给定两个数<code>a和b</code>，我们怎么把这两个数按位的顺序合并能得到一个数<code>c</code>，使得它是合并的结果中字典序最大的数。</p>
+<h4 id="双指针"><a href="#双指针" class="headerlink" title="双指针"></a>双指针</h4><p>算法步骤，类似于我们对两个有序的链表做归并所使用的算法：</p>
+<ul>
+<li>初始化两个指针p和q，分别指向两个需要合并的数的最高位<ul>
+<li>如果指针p数的字典序大于指针q指向的数的字典序，那么将指针p指向的数的最高位接到答案数组的后面</li>
+<li>否则，将指针q指向的数的最高位接到答案数组的后面</li>
+</ul>
+</li>
+<li>直到某一个数都接入到答案数组了，将另一个数的剩余部分加入到答案数组中</li>
+</ul>
+<p><strong><em>证明我不会，先放到这吧</em></strong></p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><h5 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h5><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">maxNumber</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums1, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums2, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums1.size(), m = nums2.size();</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">res</span><span class="params">(k, <span class="number">-2e9</span>)</span></span>;</span><br><span class="line">        <span class="comment">// 枚举答案数组中有多少元素是在nums1中的</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = max(<span class="number">0</span>, k - m); i &lt;= min(n, k); i ++ )&#123;</span><br><span class="line">            <span class="comment">// nums2中的元素个数</span></span><br><span class="line">            <span class="keyword">int</span> j = k - i;</span><br><span class="line">            <span class="comment">// 留i个，删掉n - i个</span></span><br><span class="line">            <span class="keyword">auto</span> a = maxArray(nums1, n - i);</span><br><span class="line">            <span class="keyword">auto</span> b = maxArray(nums2, m - j);</span><br><span class="line">            <span class="comment">// 归并</span></span><br><span class="line">            <span class="keyword">auto</span> c = merge(a, b);</span><br><span class="line">            <span class="comment">// 选择一个最大的</span></span><br><span class="line">            res = max(res, c);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 从nums数组中删掉k个元素，使剩下的元素字典序最大,见lc-402题解</span></span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">maxArray</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums, <span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> t : nums)&#123;</span><br><span class="line">            <span class="keyword">while</span>(k &amp;&amp; res.size() &amp;&amp; res.back() &lt; t) res.pop_back(), k -- ;</span><br><span class="line">            res.push_back(t);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(k &amp;&amp; res.size()) res.pop_back(), k -- ;</span><br><span class="line">        <span class="keyword">while</span>(res.size() &amp;&amp; res.front() == <span class="number">0</span>) res.erase(res.begin());</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">merge</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;a, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;b)</span></span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">        <span class="keyword">int</span> n = a.size(), m = b.size();</span><br><span class="line">        <span class="comment">// 将两个数组中的元素归并到res中</span></span><br><span class="line">        <span class="keyword">while</span>(res.size() &lt; n + m)&#123;</span><br><span class="line">            <span class="keyword">auto</span> t = &amp;a;</span><br><span class="line">            <span class="comment">// 如果b中没有元素了，就将a中元素并入res</span></span><br><span class="line">            <span class="keyword">if</span>(!b.size()) t = &amp;a;</span><br><span class="line">            <span class="comment">// 如果a中没有元素了，就将b中元素并入res</span></span><br><span class="line">            <span class="keyword">if</span>(!a.size()) t = &amp;b;</span><br><span class="line">            <span class="comment">// 如果两个都有元素，那么就并入字典序大的那个</span></span><br><span class="line">            <span class="keyword">else</span> t = a &gt; b ? &amp;a : &amp; b; <span class="comment">// 注意这个比较的复杂度是O(n)的</span></span><br><span class="line">            <span class="comment">// 将数并入，指针向后移（删除第一个元素）</span></span><br><span class="line">            res.push_back(t-&gt;front()), t-&gt;erase(t-&gt;begin());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h5 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] maxNumber(<span class="keyword">int</span>[] nums1, <span class="keyword">int</span>[] nums2, <span class="keyword">int</span> k) &#123;</span><br><span class="line">        <span class="keyword">int</span>[] res = <span class="keyword">new</span> <span class="keyword">int</span>[k];</span><br><span class="line">        <span class="keyword">int</span> n = nums1.length, m = nums2.length;</span><br><span class="line">        <span class="comment">// 枚举答案数组中有多少元素是在nums1中的</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = Math.max(<span class="number">0</span>, k - m); i &lt;= Math.min(n, k); i ++ )&#123;</span><br><span class="line">            <span class="comment">// nums2中的元素个数</span></span><br><span class="line">            <span class="keyword">int</span> j = k - i;</span><br><span class="line">            <span class="comment">// 留i个，删掉n - i个</span></span><br><span class="line">            <span class="keyword">int</span>[] a = maxArray(nums1, n - i);</span><br><span class="line">            <span class="keyword">int</span>[] b = maxArray(nums2, m - j);</span><br><span class="line">            <span class="comment">// 归并</span></span><br><span class="line">            <span class="keyword">int</span>[] c = merge(a, b);</span><br><span class="line">            <span class="comment">// 找到一个最大的</span></span><br><span class="line">            res = compare(res, c) ? res : c;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 将ArrayList&lt;Integer&gt;转化为int[] （不能直接toArray(new int[size])）</span></span><br><span class="line">    <span class="keyword">int</span>[] toArray(ArrayList&lt;Integer&gt; a)&#123;</span><br><span class="line">        <span class="keyword">int</span> n = a.size();</span><br><span class="line">        <span class="keyword">int</span>[] res = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++ ) </span><br><span class="line">            res[i] = a.get(i);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 从nums数组中删掉k个元素，使剩下的元素字典序最大,见lc-402题解</span></span><br><span class="line">    <span class="keyword">int</span>[] maxArray(<span class="keyword">int</span>[] a, <span class="keyword">int</span> k)&#123;</span><br><span class="line">        ArrayList&lt;Integer&gt; res = <span class="keyword">new</span> ArrayList();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> t : a)&#123;</span><br><span class="line">            <span class="keyword">while</span>(k &gt; <span class="number">0</span> &amp;&amp; res.size() &gt; <span class="number">0</span> &amp;&amp; res.get(res.size() - <span class="number">1</span>) &lt; t)&#123;</span><br><span class="line">                res.remove(res.size() - <span class="number">1</span>);</span><br><span class="line">                k -- ;</span><br><span class="line">            &#125;</span><br><span class="line">            res.add(t);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(k &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            res.remove(res.size() - <span class="number">1</span>);</span><br><span class="line">            k -- ;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> toArray(res);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 比较字典序，如果a &gt; b 返回 true</span></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">compare</span><span class="params">(<span class="keyword">int</span>[] a, <span class="keyword">int</span>[] b, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = a.length, m = b.length;</span><br><span class="line">        <span class="keyword">while</span>(i &lt; n &amp;&amp; j &lt; m)</span><br><span class="line">            <span class="keyword">if</span>(a[i] != b[j]) <span class="keyword">return</span> a[i] &gt; b[j];</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                i ++ ;</span><br><span class="line">                j ++ ;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">return</span> n - i &gt; m - j;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">compare</span><span class="params">(<span class="keyword">int</span>[] a, <span class="keyword">int</span>[] b)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> compare(a, b, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">// 将两个数组中的元素归并到res中</span></span><br><span class="line">    <span class="keyword">int</span>[] merge(<span class="keyword">int</span>[] a, <span class="keyword">int</span>[] b)&#123;</span><br><span class="line">        <span class="keyword">int</span> n = a.length, m = b.length;</span><br><span class="line">        ArrayList&lt;Integer&gt; res = <span class="keyword">new</span> ArrayList();</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(i &lt; n &amp;&amp; j &lt; m)</span><br><span class="line">            <span class="comment">// 比较字典序，将字典序大的头一个字符并入答案</span></span><br><span class="line">            <span class="keyword">if</span>(compare(a, b, i, j)) res.add(a[i ++ ]);</span><br><span class="line">            <span class="keyword">else</span> res.add(b[j ++ ]);</span><br><span class="line">        <span class="keyword">while</span>(i &lt; n) res.add(a[i ++ ]);</span><br><span class="line">        <span class="keyword">while</span>(j &lt; m) res.add(b[j ++ ]);</span><br><span class="line">        <span class="keyword">return</span> toArray(res);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/lc-34/" rel="prev" title="Leetcode34. 在排序数组中查找元素的第一个和最后一个位置">
+      <i class="fa fa-chevron-left"></i> Leetcode34. 在排序数组中查找元素的第一个和最后一个位置
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B4%AA%E5%BF%83-O-k-n-2"><span class="nav-number">2.1.</span> <span class="nav-text">贪心 O(k * n^2)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8C%E6%8C%87%E9%92%88"><span class="nav-number">2.1.1.</span> <span class="nav-text">双指针</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">2.1.2.</span> <span class="nav-text">代码</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#C"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">C++</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Java"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">Java</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">LiTuo</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LiTuo</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
