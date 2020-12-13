@@ -208,6 +208,75 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/lc-376/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LiTuo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="醒来">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/lc-376/" class="post-title-link" itemprop="url">Leetcode 376. 摆动序列</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-12-14 00:00:00 / 修改时间：07:00:17" itemprop="dateCreated datePublished" datetime="2020-12-14T00:00:00+08:00">2020-12-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/wiggle-subsequence/">376. 摆动序列</a></p>
+<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><h3 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h3><p>刚开始想到的是最长上升子序列模型，遍历每个数字的时候遍历其之前的所有数字，然后根据前面的摆动序列的长度来更新当前数字的摆动序列长度。</p>
+<p>具体来说，对于数字<code>nums[i]</code>,遍历之前的每个数字<code>nums[j]</code>,如果<code>nums[i] &lt; nums[j]</code>, 那么最后两个数就是上升的，把<code>nums[i]</code>加进原来最后两个数是下降的序列中即可，状态转移方程：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// f[<span class="string">0</span>][<span class="symbol">i</span>]表示以nums[i]为结尾最后两个数是上升的，最长摆动序列的长度。</span><br><span class="line">// f[<span class="string">1</span>][<span class="symbol">i</span>]表示以nums[i]为结尾最后两个数是下降的，最长摆动序列的长度。</span><br><span class="line">f[<span class="string">0</span>][<span class="symbol">i</span>] = max(f[<span class="string">0</span>][<span class="symbol">i</span>], f[<span class="string">1</span>][<span class="symbol">i - 1</span>] + 1);</span><br><span class="line">// 同理，如果<span class="code">`nums[i] &lt; nums[j]`</span>:</span><br><span class="line">f[<span class="string">1</span>][<span class="symbol">i</span>] = max(f[<span class="string">1</span>][<span class="symbol">i</span>], f[<span class="string">0</span>][<span class="symbol">i - 1</span>] + 1);</span><br></pre></td></tr></table></figure>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><h5 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h5><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">wiggleMaxLength</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.size();</span><br><span class="line">        <span class="keyword">if</span>(!n) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// f[0][i]: 以nums[i]为结尾，差值最后一个数大于零的序列的最长长度</span></span><br><span class="line">        <span class="comment">// f[1][i]: 以nums[i]为结尾，差值最后一个数小于零的序列的最长长度</span></span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">f</span><span class="params">(<span class="number">2</span>, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n))</span></span>;</span><br><span class="line">        f[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        f[<span class="number">1</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i ++ )</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; j ++ )</span><br><span class="line">                <span class="keyword">if</span>(nums[i] &gt; nums[j])&#123; <span class="comment">// 最后两个数上升</span></span><br><span class="line">                    f[<span class="number">0</span>][i] = max(f[<span class="number">0</span>][i], f[<span class="number">1</span>][j] + <span class="number">1</span>);</span><br><span class="line">                    res = max(res, f[<span class="number">0</span>][i]);</span><br><span class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span>(nums[i] &lt; nums[j])&#123;  <span class="comment">// 最后两个数下降</span></span><br><span class="line">                    f[<span class="number">1</span>][i] = max(f[<span class="number">1</span>][i], f[<span class="number">0</span>][j] + <span class="number">1</span>);</span><br><span class="line">                    res = max(res, f[<span class="number">1</span>][i]);</span><br><span class="line">                &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h5 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">wiggleMaxLength</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.length;</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">        <span class="comment">// f[0][i]: 以nums[i]为结尾，差值最后一个数大于零的序列的最长长度</span></span><br><span class="line">        <span class="comment">// f[1][i]: 以nums[i]为结尾，差值最后一个数小于零的序列的最长长度</span></span><br><span class="line">        <span class="keyword">int</span>[][] f = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>][n];</span><br><span class="line">        f[<span class="number">0</span>][<span class="number">0</span>] = f[<span class="number">1</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i ++ )&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; j ++ )</span><br><span class="line">                <span class="keyword">if</span>(nums[i] &gt; nums[i - <span class="number">1</span>])&#123; <span class="comment">// 差值最后一个数大于零的序列</span></span><br><span class="line">                    f[<span class="number">0</span>][i] = Math.max(f[<span class="number">0</span>][i], f[<span class="number">1</span>][j] + <span class="number">1</span>);</span><br><span class="line">                    res = Math.max(res, f[<span class="number">0</span>][i]);</span><br><span class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span>(nums[i] &lt; nums[j])&#123;  <span class="comment">// 差值最后一个数小于零的序列</span></span><br><span class="line">                    f[<span class="number">1</span>][i] = Math.max(f[<span class="number">1</span>][i], f[<span class="number">0</span>][j] + <span class="number">1</span>);</span><br><span class="line">                    res = Math.max(res, f[<span class="number">1</span>][i]);</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><em>还有一种动态规划的算法只要O(n), 就在官方题解里面，但是我一直没怎么想明白，以后再补吧</em></strong></p>
+<h3 id="贪心"><a href="#贪心" class="headerlink" title="贪心"></a>贪心</h3><p>贪心的算法也很简单，将相邻重复元素去重，计算这个去重数组中的极值个数，再加上个端点，就是想要的答案了。</p>
+<p>如果要证明的话，可以用调整法，任意选取一个最优解，我们在这个最优解里面任选一个点，我们都可以把他调整到最近的极大值或者是极小值，也就和我们所选取的答案相同了。</p>
+<h4 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h4><h5 id="C-1"><a href="#C-1" class="headerlink" title="C++"></a>C++</h5><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">wiggleMaxLength</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        nums.erase(unique(nums.begin(), nums.end()), nums.end());</span><br><span class="line">        <span class="keyword">int</span> n = nums.size();</span><br><span class="line">        <span class="keyword">if</span>(n &lt;= <span class="number">2</span>) <span class="keyword">return</span> n;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">2</span>; <span class="comment">// 两个端点值</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i + <span class="number">1</span> &lt; n; i ++ )&#123;</span><br><span class="line">            <span class="keyword">int</span> a = nums[i - <span class="number">1</span>], b = nums[i], c = nums[i + <span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span>(b &lt; a &amp;&amp; b &lt; c || b &gt; a &amp;&amp; b &gt; c) res ++ ; <span class="comment">// b是极小值或者极大值</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h5 id="Java-1"><a href="#Java-1" class="headerlink" title="Java"></a>Java</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">wiggleMaxLength</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.length == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> n = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.length; i ++ )</span><br><span class="line">            <span class="keyword">if</span>(nums[i] != nums[n]) nums[++ n] = nums[i];</span><br><span class="line">        n ++ ; <span class="comment">// 不连续相同的数字的个数</span></span><br><span class="line">        <span class="keyword">if</span>(n &lt;= <span class="number">2</span>) <span class="keyword">return</span> n;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i + <span class="number">1</span> &lt; n; i ++ )&#123;</span><br><span class="line">            <span class="keyword">int</span> a = nums[i - <span class="number">1</span>], b = nums[i], c = nums[i + <span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span>(b &lt; a &amp;&amp; b &lt; c || b &gt; a &amp;&amp; b &gt; c) res ++ ;</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/lc-217/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -769,69 +838,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/lc-659/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LiTuo">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="醒来">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/lc-659/" class="post-title-link" itemprop="url">Leetcode659. 分割数组为连续子序列</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-12-04 00:00:00 / 修改时间：15:15:52" itemprop="dateCreated datePublished" datetime="2020-12-04T00:00:00+08:00">2020-12-04</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/split-array-into-consecutive-subsequences/">659. 分割数组为连续子序列</a></p>
-<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><h3 id="模拟-O-n"><a href="#模拟-O-n" class="headerlink" title="模拟 O(n)"></a>模拟 O(n)</h3><p>用两个哈希表，记录数组中数的个数和以x为结尾的队列的个数。然后遍历整个数组，将每个数加到队列里面，如果对于元素t有以t - 1为结尾的队列，则把t放到这个队列后面；如果没有，则新建一个队列，注意，因为每个队列的长度至少为3，所以要检查数组中是否还有 t + 1和 t + 2, 把这三个数一起放到队列中，也就是一个以t + 2为结尾的队列。</p>
-<p>如果某个元素t，又没有以t - 1为结尾的队列，又不能和他后面的两个数创建一个新队列，则表示不能满足题意。</p>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><h5 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isPossible</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        Map&lt;Integer, Integer&gt; mp = <span class="keyword">new</span> HashMap();</span><br><span class="line">        Map&lt;Integer, Integer&gt; que = <span class="keyword">new</span> HashMap();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> t : nums)&#123;</span><br><span class="line">            <span class="comment">// 以t和t - 1为结尾的队列的数量初始化为0</span></span><br><span class="line">            que.put(t, <span class="number">0</span>);</span><br><span class="line">            que.put(t - <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">            <span class="comment">// 对nums中的元素进行计数</span></span><br><span class="line">            <span class="keyword">if</span>(!mp.containsKey(t)) mp.put(t, <span class="number">0</span>);</span><br><span class="line">            mp.put(t, mp.get(t) + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> t : nums)&#123;</span><br><span class="line">            <span class="comment">// 如果这个数被加入到队列中了，跳过</span></span><br><span class="line">            <span class="keyword">if</span>(mp.get(t) == <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="comment">// 将这个数计数-1，准备放入队列</span></span><br><span class="line">            mp.put(t, mp.get(t) - <span class="number">1</span>);</span><br><span class="line">            <span class="comment">// 如果有以t - 1为结尾的队列</span></span><br><span class="line">            <span class="keyword">if</span>(que.get(t - <span class="number">1</span>) != <span class="number">0</span>)&#123;</span><br><span class="line">                que.put(t - <span class="number">1</span>, que.get(t - <span class="number">1</span>) - <span class="number">1</span>);</span><br><span class="line">                que.put(t, que.get(t) + <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 如果t可以和t + 1 和 t + 2一起放入队列</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(mp.containsKey(t + <span class="number">1</span>) &amp;&amp; mp.containsKey(t + <span class="number">2</span>) </span><br><span class="line">                    &amp;&amp; mp.get(t + <span class="number">1</span>) &gt; <span class="number">0</span> &amp;&amp; mp.get(t + <span class="number">2</span>) &gt; <span class="number">0</span>)&#123;</span><br><span class="line">                mp.put(t + <span class="number">1</span>, mp.get(t + <span class="number">1</span>) - <span class="number">1</span>);</span><br><span class="line">                mp.put(t + <span class="number">2</span>, mp.get(t + <span class="number">2</span>) - <span class="number">1</span>);</span><br><span class="line">                que.put(t + <span class="number">2</span>, que.get(t + <span class="number">2</span>) + <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h5><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isPossible</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; cnt, que;</span><br><span class="line">        <span class="comment">// 对数组中每个数进行计数</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> t : nums) cnt[t] ++ ;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> t : nums)&#123;</span><br><span class="line">            <span class="comment">// 如果这个数被提前加入队列</span></span><br><span class="line">            <span class="keyword">if</span>(!cnt[t]) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="comment">// 如果有以t - 1为结尾的队列</span></span><br><span class="line">            <span class="keyword">if</span>(que[t - <span class="number">1</span>]) que[t - <span class="number">1</span>] -- , que[t] ++ ;</span><br><span class="line">            <span class="comment">// 如果t可以和t + 1 和 t + 2一起放入队列</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(cnt[t + <span class="number">1</span>] &amp;&amp; cnt[t + <span class="number">2</span>]) cnt[t + <span class="number">1</span>] -- , cnt[t + <span class="number">2</span>] -- , que[t + <span class="number">2</span>] ++ ;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            cnt[t] -- ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -901,7 +907,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
