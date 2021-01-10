@@ -146,6 +146,68 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/lc-228/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LiTuo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="醒来">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/lc-228/" class="post-title-link" itemprop="url">Leetcode228. 汇总区间</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-01-10 00:00:00 / 修改时间：08:19:39" itemprop="dateCreated datePublished" datetime="2021-01-10T00:00:00+08:00">2021-01-10</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/summary-ranges/">228. 汇总区间</a></p>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>遍历数组，如果一组数可以构成一个连续的区间，那么就把这组数的首末两个数加到答案里面。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><h4 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">summaryRanges</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; res;</span><br><span class="line">        <span class="keyword">if</span>(nums.empty()) <span class="keyword">return</span> res;</span><br><span class="line">        <span class="comment">// 首个区间设定为[nums[0], nums[0]]</span></span><br><span class="line">        <span class="keyword">int</span> st = nums[<span class="number">0</span>], ed = nums[<span class="number">0</span>], n = nums.size();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++ )&#123;</span><br><span class="line">            <span class="comment">// 如果nums[i]可以合并到当前区间内，合并</span></span><br><span class="line">            <span class="keyword">if</span>(i &lt; n &amp;&amp; nums[i] == ed + <span class="number">1</span>) ed ++ ;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="comment">// 如果不能合并，将当前区间加入到答案</span></span><br><span class="line">                <span class="keyword">if</span>(st != ed) res.push_back(to_string(st) + <span class="string">&quot;-&gt;&quot;</span> + to_string(ed));</span><br><span class="line">                <span class="keyword">else</span> res.push_back(to_string(st));</span><br><span class="line">                <span class="comment">//将区间设定为[nums[i], nums[i]]</span></span><br><span class="line">                <span class="keyword">if</span>(i &lt; n) st = ed = nums[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">summaryRanges</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        List&lt;String&gt; res = <span class="keyword">new</span> ArrayList();</span><br><span class="line">        <span class="keyword">int</span> n = nums.length;</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">0</span>) <span class="keyword">return</span> res;</span><br><span class="line">        <span class="comment">// 首个区间设定为[nums[0], nums[0]]</span></span><br><span class="line">        <span class="keyword">int</span> st = nums[<span class="number">0</span>], ed = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++ )&#123;</span><br><span class="line">            <span class="comment">// 如果nums[i]可以合并到当前区间内，合并</span></span><br><span class="line">            <span class="keyword">if</span>(i &lt; n &amp;&amp; nums[i] == ed + <span class="number">1</span>) ed ++ ;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="comment">// 如果不能合并，将当前区间加入到答案</span></span><br><span class="line">                <span class="keyword">if</span>(st == ed) res.add(st + <span class="string">&quot;&quot;</span>);</span><br><span class="line">                <span class="keyword">else</span> res.add(st + <span class="string">&quot;-&gt;&quot;</span> + ed);</span><br><span class="line">                <span class="comment">//将区间设定为[nums[i], nums[i]]</span></span><br><span class="line">                <span class="keyword">if</span>(i &lt; n) st = ed = nums[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/lc123/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -699,73 +761,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/lc-135/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LiTuo">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="醒来">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/lc-135/" class="post-title-link" itemprop="url">Leetcode135. 分发糖果</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-12-25 00:00:00" itemprop="dateCreated datePublished" datetime="2020-12-25T00:00:00+08:00">2020-12-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-24 08:20:38" itemprop="dateModified" datetime="2020-12-24T08:20:38+08:00">2020-12-24</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/candy/">135. 分发糖果</a></p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; cands, ratings;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> cur)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(cands[cur] != <span class="number">0</span>) <span class="keyword">return</span> cands[cur];</span><br><span class="line">        <span class="keyword">int</span> t = <span class="number">1</span>; <span class="comment">// 给孩子分一个糖</span></span><br><span class="line">        <span class="keyword">if</span>(cur &amp;&amp; ratings[cur] &gt; ratings[cur - <span class="number">1</span>]) t = max(t, dfs(cur - <span class="number">1</span>) + <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span>(cur + <span class="number">1</span> &lt; ratings.size() &amp;&amp; ratings[cur] &gt; ratings[cur + <span class="number">1</span>]) t = max(t, dfs(cur + <span class="number">1</span>) + <span class="number">1</span>);</span><br><span class="line">        cands[cur] = t;</span><br><span class="line">        <span class="keyword">return</span> t; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">candy</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; _ratings)</span> </span>&#123;</span><br><span class="line">        ratings = _ratings;</span><br><span class="line">        <span class="keyword">int</span> n = ratings.size();</span><br><span class="line">        cands = <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++ ) res += dfs(i);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span>[] cands, ratings;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> u)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(cands[u] != <span class="number">0</span>) <span class="keyword">return</span> cands[u];</span><br><span class="line">        <span class="keyword">int</span> t = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(u &gt; <span class="number">0</span> &amp;&amp; ratings[u] &gt; ratings[u - <span class="number">1</span>]) t = Math.max(t, dfs(u - <span class="number">1</span>) + <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span>(u + <span class="number">1</span> &lt; ratings.length &amp;&amp; ratings[u] &gt; ratings[u + <span class="number">1</span>]) t = Math.max(t, dfs(u + <span class="number">1</span>) + <span class="number">1</span>);</span><br><span class="line">        cands[u] = t;</span><br><span class="line">        <span class="keyword">return</span> t;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">candy</span><span class="params">(<span class="keyword">int</span>[] _ratings)</span> </span>&#123;</span><br><span class="line">        ratings = _ratings;</span><br><span class="line">        <span class="keyword">int</span> n = ratings.length, res = <span class="number">0</span>;</span><br><span class="line">        cands = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++ ) res += dfs(i);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -835,7 +830,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-count">65</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
